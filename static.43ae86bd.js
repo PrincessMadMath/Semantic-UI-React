@@ -23850,17 +23850,19 @@ function SearchCategory(props) {
       children = props.children,
       className = props.className,
       content = props.content,
+      layoutRenderer = props.layoutRenderer,
       renderer = props.renderer;
   var classes = (0, _classnames.default)((0, _lib.useKeyOnly)(active, 'active'), 'category', className);
   var rest = (0, _lib.getUnhandledProps)(SearchCategory, props);
   var ElementType = (0, _lib.getElementType)(SearchCategory, props);
+  var categoryContent = renderer(props);
+  var resultsContent = _lib.childrenUtils.isNil(children) ? content : children;
   return _react.default.createElement(ElementType, (0, _extends2.default)({}, rest, {
     className: classes
-  }), _react.default.createElement("div", {
-    className: "name"
-  }, renderer(props)), _react.default.createElement("div", {
-    className: "results"
-  }, _lib.childrenUtils.isNil(children) ? content : children));
+  }), layoutRenderer({
+    categoryContent: categoryContent,
+    resultsContent: resultsContent
+  }));
 }
 
 SearchCategory.handledProps = ["active", "as", "children", "className", "content", "name", "renderer", "results"];
@@ -26079,7 +26081,7 @@ var _NoSSR = _interopRequireDefault(__webpack_require__(1545));
 var CodeEditor = _react.default.lazy(function () {
   return (0, _universalImport2.default)({
     id: "./CodeEditor",
-    file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\src\\components\\CodeEditor\\index.js",
+    file: "C:\\Dev\\Semantic-UI\\docs\\src\\components\\CodeEditor\\index.js",
     load: function load() {
       return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 456)), (0, _importCss2.default)("CodeEditor", {
         disableWarnings: true
@@ -28453,12 +28455,10 @@ var _react = _interopRequireDefault(__webpack_require__(1));
 var _semanticUiReact = __webpack_require__(2);
 
 var LoginForm = function LoginForm() {
-  return _react.default.createElement("div", {
-    className: "login-form"
-  }, _react.default.createElement("style", null, "\n      body > div,\n      body > div > div,\n      body > div > div > div.login-form {\n        height: 100%;\n      }\n    "), _react.default.createElement(_semanticUiReact.Grid, {
+  return _react.default.createElement(_semanticUiReact.Grid, {
     textAlign: "center",
     style: {
-      height: '100%'
+      height: '100vh'
     },
     verticalAlign: "middle"
   }, _react.default.createElement(_semanticUiReact.Grid.Column, {
@@ -28492,7 +28492,7 @@ var LoginForm = function LoginForm() {
     size: "large"
   }, "Login"))), _react.default.createElement(_semanticUiReact.Message, null, "New to us? ", _react.default.createElement("a", {
     href: "#"
-  }, "Sign Up")))));
+  }, "Sign Up"))));
 };
 
 LoginForm.handledProps = [];
@@ -68779,8 +68779,27 @@ var _react = _interopRequireWildcard(__webpack_require__(1));
 
 var _semanticUiReact = __webpack_require__(2);
 
-var categoryRenderer = function categoryRenderer(_ref) {
-  var name = _ref.name;
+var categoryLayoutRenderer = function categoryLayoutRenderer(_ref) {
+  var categoryContent = _ref.categoryContent,
+      resultsContent = _ref.resultsContent;
+  return _react.default.createElement("div", null, _react.default.createElement("h3", {
+    className: "name"
+  }, categoryContent), _react.default.createElement("div", {
+    style: {
+      background: 'red'
+    },
+    className: "results"
+  }, resultsContent));
+};
+
+categoryLayoutRenderer.handledProps = ["categoryContent", "resultsContent"];
+categoryLayoutRenderer.propTypes =  false ? {
+  categoryContent: _propTypes.default.node,
+  resultsContent: _propTypes.default.node
+} : {};
+
+var categoryRenderer = function categoryRenderer(_ref2) {
+  var name = _ref2.name;
   return _react.default.createElement(_semanticUiReact.Label, {
     as: "span",
     content: name
@@ -68792,8 +68811,8 @@ categoryRenderer.propTypes =  false ? {
   name: _propTypes.default.string
 } : {};
 
-var resultRenderer = function resultRenderer(_ref2) {
-  var title = _ref2.title;
+var resultRenderer = function resultRenderer(_ref3) {
+  var title = _ref3.title;
   return _react.default.createElement(_semanticUiReact.Label, {
     content: title
   });
@@ -68850,14 +68869,14 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(SearchExampleCategory)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "state", initialState);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleResultSelect", function (e, _ref3) {
-      var result = _ref3.result;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleResultSelect", function (e, _ref4) {
+      var result = _ref4.result;
       return _this.setState({
         value: result.title
       });
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleSearchChange", function (e, _ref4) {
-      var value = _ref4.value;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleSearchChange", function (e, _ref5) {
+      var value = _ref5.value;
 
       _this.setState({
         isLoading: true,
@@ -68902,6 +68921,7 @@ function (_Component) {
         width: 8
       }, _react.default.createElement(_semanticUiReact.Search, (0, _extends2.default)({
         category: true,
+        categoryLayoutRenderer: categoryLayoutRenderer,
         categoryRenderer: categoryRenderer,
         loading: isLoading,
         onResultSelect: this.handleResultSelect,
@@ -77431,7 +77451,7 @@ var universalOptions = {
 };
 var t_0 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/pages/Introduction",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 272)), (0, _importCss7.default)("src-pages-Introduction", {
       disableWarnings: true
@@ -77451,7 +77471,7 @@ var t_0 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
 }), universalOptions);
 var t_1 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/pages/PageNotFound",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 290)), (0, _importCss7.default)("src-pages-PageNotFound", {
       disableWarnings: true
@@ -77471,7 +77491,7 @@ var t_1 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
 }), universalOptions);
 var t_2 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/components/DocumentationPage",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 461)), (0, _importCss7.default)("src-components-DocumentationPage", {
       disableWarnings: true
@@ -77491,7 +77511,7 @@ var t_2 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
 }), universalOptions);
 var t_3 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/components/ComponentDoc",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 462)), (0, _importCss7.default)("src-components-ComponentDoc", {
       disableWarnings: true
@@ -77511,7 +77531,7 @@ var t_3 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
 }), universalOptions);
 var t_4 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/components/LayoutsLayout",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 467)), (0, _importCss7.default)("src-components-LayoutsLayout", {
       disableWarnings: true
@@ -77531,7 +77551,7 @@ var t_4 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
 }), universalOptions);
 var t_5 = (0, _reactUniversalComponent.default)((0, _universalImport7.default)({
   id: "../src/components/ExternalExampleLayout",
-  file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\dist\\react-static-routes.js",
+  file: "C:\\Dev\\Semantic-UI\\docs\\dist\\react-static-routes.js",
   load: function load() {
     return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 478)), (0, _importCss7.default)("src-components-ExternalExampleLayout", {
       disableWarnings: true
@@ -81218,9 +81238,10 @@ function (_Component) {
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "setDimmerNodeStyle", function () {
       debug('setDimmerNodeStyle()');
+      var current = _this.dimmerRef.current;
 
-      if (_this.dimmerRef.current && _this.dimmerRef.current.style) {
-        _this.dimmerRef.current.style.setProperty('display', 'flex', 'important');
+      if (current && current.style && current.style.display !== 'flex') {
+        current.style.setProperty('display', 'flex', 'important');
       }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "setPositionAndClassNames", function () {
@@ -83616,7 +83637,8 @@ function (_Component) {
       return _react.default.createElement("div", {
         className: classes,
         role: "alert",
-        "aria-live": "polite"
+        "aria-live": "polite",
+        "aria-atomic": true
       }, _text);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "renderSearchInput", function () {
@@ -88256,15 +88278,15 @@ var _invoke2 = _interopRequireDefault(__webpack_require__(17));
 
 var _refUtils = __webpack_require__(277);
 
-var CreateReferenceProxy =
+var ReferenceProxy =
 /*#__PURE__*/
 function () {
-  function CreateReferenceProxy(refObject) {
-    (0, _classCallCheck2.default)(this, CreateReferenceProxy);
+  function ReferenceProxy(refObject) {
+    (0, _classCallCheck2.default)(this, ReferenceProxy);
     this.ref = refObject;
   }
 
-  (0, _createClass2.default)(CreateReferenceProxy, [{
+  (0, _createClass2.default)(ReferenceProxy, [{
     key: "getBoundingClientRect",
     value: function getBoundingClientRect() {
       return (0, _invoke2.default)(this.ref.current, 'getBoundingClientRect', {});
@@ -88279,8 +88301,13 @@ function () {
     get: function get() {
       return this.getBoundingClientRect().height;
     }
+  }, {
+    key: "parentNode",
+    get: function get() {
+      return this.ref.current ? this.ref.current.parentNode : undefined;
+    }
   }]);
-  return CreateReferenceProxy;
+  return ReferenceProxy;
 }();
 /**
  * Popper.js does not support ref objects from `createRef()` as referenceElement. If we will pass
@@ -88292,7 +88319,7 @@ function () {
 
 
 var createReferenceProxy = (0, _memoize2.default)(function (reference) {
-  return new CreateReferenceProxy( // TODO: use toRefObject from Stardust
+  return new ReferenceProxy( // TODO: use toRefObject from Stardust
   // https://github.com/stardust-ui/react/issues/998
   (0, _refUtils.isRefObject)(reference) ? reference : {
     current: reference
@@ -89217,6 +89244,7 @@ function (_Component) {
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "renderCategories", function () {
       var _this$props4 = _this.props,
+          categoryLayoutRenderer = _this$props4.categoryLayoutRenderer,
           categoryRenderer = _this$props4.categoryRenderer,
           categories = _this$props4.results;
       var selectedIndex = _this.state.selectedIndex;
@@ -89227,6 +89255,7 @@ function (_Component) {
         var categoryProps = (0, _objectSpread2.default)({
           key: childKey || category.name,
           active: (0, _inRange2.default)(selectedIndex, count, count + category.results.length),
+          layoutRenderer: categoryLayoutRenderer,
           renderer: categoryRenderer
         }, category);
         var renderFn = (0, _partialRight2.default)(_this.renderResult, count);
@@ -89397,7 +89426,7 @@ exports.default = Search;
 (0, _defineProperty2.default)(Search, "Category", _SearchCategory.default);
 (0, _defineProperty2.default)(Search, "Result", _SearchResult.default);
 (0, _defineProperty2.default)(Search, "Results", _SearchResults.default);
-(0, _defineProperty2.default)(Search, "handledProps", ["aligned", "as", "category", "categoryRenderer", "className", "defaultOpen", "defaultValue", "fluid", "icon", "input", "loading", "minCharacters", "noResultsDescription", "noResultsMessage", "onBlur", "onFocus", "onMouseDown", "onResultSelect", "onSearchChange", "onSelectionChange", "open", "resultRenderer", "results", "selectFirstResult", "showNoResults", "size", "value"]);
+(0, _defineProperty2.default)(Search, "handledProps", ["aligned", "as", "category", "categoryLayoutRenderer", "categoryRenderer", "className", "defaultOpen", "defaultValue", "fluid", "icon", "input", "loading", "minCharacters", "noResultsDescription", "noResultsMessage", "onBlur", "onFocus", "onMouseDown", "onResultSelect", "onSearchChange", "onSelectionChange", "open", "resultRenderer", "results", "selectFirstResult", "showNoResults", "size", "value"]);
 Search.propTypes =  false ? {
   /** An element type to render as (string or function). */
   as: _lib.customPropTypes.as,
@@ -89444,6 +89473,15 @@ Search.propTypes =  false ? {
   // ------------------------------------
   // Rendering
   // ------------------------------------
+
+  /**
+   * Renders the SearchCategory layout.
+   *
+   * @param {object} categoryContent - The Renderable SearchCategory contents.
+   * @param {object} resultsContent - The Renderable SearchResult contents.
+   * @returns {*} - Renderable SearchCategory layout.
+   */
+  categoryLayoutRenderer: _propTypes.default.func,
 
   /**
    * Renders the SearchCategory contents.
@@ -92302,7 +92340,7 @@ module.exports = {"displayName":"RevealContent","props":[{"type":"custom","requi
 /* 1696 */
 /***/ (function(module, exports) {
 
-module.exports = {"displayName":"Search","props":[{"type":"string","required":false,"description":["A search can have its results aligned to its left or right container edge."],"tags":[],"name":"aligned"},{"type":"custom","required":false,"description":["An element type to render as (string or function)."],"tags":[],"name":"as"},{"type":"bool","required":false,"description":["A search can display results from remote content ordered by categories."],"tags":[],"name":"category"},{"type":"func","required":false,"description":["Renders the SearchCategory contents."],"tags":[{"title":"param","description":"The SearchCategory props object.","type":{"type":"NameExpression","name":"object"},"name":"props"},{"title":"returns","description":"Renderable SearchCategory contents.","type":{"type":"AllLiteral"}}],"name":"categoryRenderer"},{"type":"string","required":false,"description":["Additional classes."],"tags":[],"name":"className"},{"type":"bool","required":false,"description":["Initial value of open."],"tags":[],"name":"defaultOpen"},{"type":"string","required":false,"description":["Initial value."],"tags":[],"name":"defaultValue"},{"type":"bool","required":false,"description":["A search can have its results take up the width of its container."],"tags":[],"name":"fluid"},{"type":"node|object","required":false,"description":["Shorthand for Icon."],"defaultValue":"'search'","tags":[],"value":[],"name":"icon"},{"type":"custom","required":false,"description":["A search input can take up the width of its container."],"defaultValue":"'text'","tags":[],"name":"input"},{"type":"bool","required":false,"description":["A search can show a loading indicator."],"tags":[],"name":"loading"},{"type":"number","required":false,"description":["Minimum characters to query for results"],"defaultValue":"1","tags":[],"name":"minCharacters"},{"type":"node","required":false,"description":["Additional text for \"No Results\" message with less emphasis."],"tags":[],"name":"noResultsDescription"},{"type":"node","required":false,"description":["Message to display when there are no results."],"defaultValue":"'No results found.'","tags":[],"name":"noResultsMessage"},{"type":"func","required":false,"description":["Called on blur."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onBlur"},{"type":"func","required":false,"description":["Called on focus."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onFocus"},{"type":"func","required":false,"description":["Called on mousedown."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onMouseDown"},{"type":"func","required":false,"description":["Called when a result is selected."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onResultSelect"},{"type":"func","required":false,"description":["Called on search input change."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props, includes current value of search input.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onSearchChange"},{"type":"func","required":false,"description":["Called when the active selection index is changed."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onSelectionChange"},{"type":"bool","required":false,"description":["Controls whether or not the results menu is displayed."],"tags":[],"name":"open"},{"type":"func","required":false,"description":["Renders the SearchResult contents."],"tags":[{"title":"param","description":"The SearchResult props object.","type":{"type":"NameExpression","name":"object"},"name":"props"},{"title":"returns","description":"Renderable SearchResult contents.","type":{"type":"AllLiteral"}}],"name":"resultRenderer"},{"type":"arrayOf|shape","required":false,"description":["One of:\r","- array of Search.Result props e.g. `{ title: '', description: '' }` or\r","- object of categories e.g. `{ name: '', results: [{ title: '', description: '' }]`"],"tags":[],"value":[],"name":"results"},{"type":"bool","required":false,"description":["Whether the search should automatically select the first result after searching."],"tags":[],"name":"selectFirstResult"},{"type":"bool","required":false,"description":["Whether a \"no results\" message should be shown if no results are found."],"defaultValue":"true","tags":[],"name":"showNoResults"},{"type":"enum","required":false,"description":["A search can have different sizes."],"tags":[],"value":["mini","tiny","small","large","big","huge","massive"],"name":"size"},{"type":"string","required":false,"description":["Current value of the search input. Creates a controlled component."],"tags":[],"name":"value"}],"constructorName":"Search","type":"module","isParent":true,"isChild":false,"parentDisplayName":null,"subcomponentName":null,"subcomponents":["SearchCategory","SearchResult","SearchResults"],"apiPath":"Search","componentClassName":"search","docblock":{"tags":[],"description":["A search module allows a user to query for results from a selection of data"]},"examplesExist":true,"repoPath":"src/modules/Search/Search.js","filename":"Search.js","filenameWithoutExt":"Search"}
+module.exports = {"displayName":"Search","props":[{"type":"string","required":false,"description":["A search can have its results aligned to its left or right container edge."],"tags":[],"name":"aligned"},{"type":"custom","required":false,"description":["An element type to render as (string or function)."],"tags":[],"name":"as"},{"type":"bool","required":false,"description":["A search can display results from remote content ordered by categories."],"tags":[],"name":"category"},{"type":"func","required":false,"description":["Renders the SearchCategory layout."],"tags":[{"title":"param","description":"The Renderable SearchCategory contents.","type":{"type":"NameExpression","name":"object"},"name":"categoryContent"},{"title":"param","description":"The Renderable SearchResult contents.","type":{"type":"NameExpression","name":"object"},"name":"resultsContent"},{"title":"returns","description":"Renderable SearchCategory layout.","type":{"type":"AllLiteral"}}],"name":"categoryLayoutRenderer"},{"type":"func","required":false,"description":["Renders the SearchCategory contents."],"tags":[{"title":"param","description":"The SearchCategory props object.","type":{"type":"NameExpression","name":"object"},"name":"props"},{"title":"returns","description":"Renderable SearchCategory contents.","type":{"type":"AllLiteral"}}],"name":"categoryRenderer"},{"type":"string","required":false,"description":["Additional classes."],"tags":[],"name":"className"},{"type":"bool","required":false,"description":["Initial value of open."],"tags":[],"name":"defaultOpen"},{"type":"string","required":false,"description":["Initial value."],"tags":[],"name":"defaultValue"},{"type":"bool","required":false,"description":["A search can have its results take up the width of its container."],"tags":[],"name":"fluid"},{"type":"node|object","required":false,"description":["Shorthand for Icon."],"defaultValue":"'search'","tags":[],"value":[],"name":"icon"},{"type":"custom","required":false,"description":["A search input can take up the width of its container."],"defaultValue":"'text'","tags":[],"name":"input"},{"type":"bool","required":false,"description":["A search can show a loading indicator."],"tags":[],"name":"loading"},{"type":"number","required":false,"description":["Minimum characters to query for results"],"defaultValue":"1","tags":[],"name":"minCharacters"},{"type":"node","required":false,"description":["Additional text for \"No Results\" message with less emphasis."],"tags":[],"name":"noResultsDescription"},{"type":"node","required":false,"description":["Message to display when there are no results."],"defaultValue":"'No results found.'","tags":[],"name":"noResultsMessage"},{"type":"func","required":false,"description":["Called on blur."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onBlur"},{"type":"func","required":false,"description":["Called on focus."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onFocus"},{"type":"func","required":false,"description":["Called on mousedown."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onMouseDown"},{"type":"func","required":false,"description":["Called when a result is selected."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onResultSelect"},{"type":"func","required":false,"description":["Called on search input change."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props, includes current value of search input.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onSearchChange"},{"type":"func","required":false,"description":["Called when the active selection index is changed."],"tags":[{"title":"param","description":"React's original SyntheticEvent.","type":{"type":"NameExpression","name":"SyntheticEvent"},"name":"event"},{"title":"param","description":"All props.","type":{"type":"NameExpression","name":"object"},"name":"data"}],"name":"onSelectionChange"},{"type":"bool","required":false,"description":["Controls whether or not the results menu is displayed."],"tags":[],"name":"open"},{"type":"func","required":false,"description":["Renders the SearchResult contents."],"tags":[{"title":"param","description":"The SearchResult props object.","type":{"type":"NameExpression","name":"object"},"name":"props"},{"title":"returns","description":"Renderable SearchResult contents.","type":{"type":"AllLiteral"}}],"name":"resultRenderer"},{"type":"arrayOf|shape","required":false,"description":["One of:\r","- array of Search.Result props e.g. `{ title: '', description: '' }` or\r","- object of categories e.g. `{ name: '', results: [{ title: '', description: '' }]`"],"tags":[],"value":[],"name":"results"},{"type":"bool","required":false,"description":["Whether the search should automatically select the first result after searching."],"tags":[],"name":"selectFirstResult"},{"type":"bool","required":false,"description":["Whether a \"no results\" message should be shown if no results are found."],"defaultValue":"true","tags":[],"name":"showNoResults"},{"type":"enum","required":false,"description":["A search can have different sizes."],"tags":[],"value":["mini","tiny","small","large","big","huge","massive"],"name":"size"},{"type":"string","required":false,"description":["Current value of the search input. Creates a controlled component."],"tags":[],"name":"value"}],"constructorName":"Search","type":"module","isParent":true,"isChild":false,"parentDisplayName":null,"subcomponentName":null,"subcomponents":["SearchCategory","SearchResult","SearchResults"],"apiPath":"Search","componentClassName":"search","docblock":{"tags":[],"description":["A search module allows a user to query for results from a selection of data"]},"examplesExist":true,"repoPath":"src/modules/Search/Search.js","filename":"Search.js","filenameWithoutExt":"Search"}
 
 /***/ }),
 /* 1697 */

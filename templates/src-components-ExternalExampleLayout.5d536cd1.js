@@ -1422,7 +1422,7 @@ var _NoSSR = _interopRequireDefault(__webpack_require__(1175));
 var CodeEditor = _react.default.lazy(function () {
   return (0, _universalImport2.default)({
     id: "./CodeEditor",
-    file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\src\\components\\CodeEditor\\index.js",
+    file: "C:\\Dev\\Semantic-UI\\docs\\src\\components\\CodeEditor\\index.js",
     load: function load() {
       return Promise.all([__webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 1003)), (0, _importCss2.default)("CodeEditor", {
         disableWarnings: true
@@ -79540,8 +79540,27 @@ var _react = _interopRequireWildcard(__webpack_require__(1));
 
 var _semanticUiReact = __webpack_require__(126);
 
-var categoryRenderer = function categoryRenderer(_ref) {
-  var name = _ref.name;
+var categoryLayoutRenderer = function categoryLayoutRenderer(_ref) {
+  var categoryContent = _ref.categoryContent,
+      resultsContent = _ref.resultsContent;
+  return _react.default.createElement("div", null, _react.default.createElement("h3", {
+    className: "name"
+  }, categoryContent), _react.default.createElement("div", {
+    style: {
+      background: 'red'
+    },
+    className: "results"
+  }, resultsContent));
+};
+
+categoryLayoutRenderer.handledProps = ["categoryContent", "resultsContent"];
+categoryLayoutRenderer.propTypes =  false ? {
+  categoryContent: _propTypes.default.node,
+  resultsContent: _propTypes.default.node
+} : {};
+
+var categoryRenderer = function categoryRenderer(_ref2) {
+  var name = _ref2.name;
   return _react.default.createElement(_semanticUiReact.Label, {
     as: "span",
     content: name
@@ -79553,8 +79572,8 @@ categoryRenderer.propTypes =  false ? {
   name: _propTypes.default.string
 } : {};
 
-var resultRenderer = function resultRenderer(_ref2) {
-  var title = _ref2.title;
+var resultRenderer = function resultRenderer(_ref3) {
+  var title = _ref3.title;
   return _react.default.createElement(_semanticUiReact.Label, {
     content: title
   });
@@ -79611,14 +79630,14 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(SearchExampleCategory)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "state", initialState);
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleResultSelect", function (e, _ref3) {
-      var result = _ref3.result;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleResultSelect", function (e, _ref4) {
+      var result = _ref4.result;
       return _this.setState({
         value: result.title
       });
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleSearchChange", function (e, _ref4) {
-      var value = _ref4.value;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleSearchChange", function (e, _ref5) {
+      var value = _ref5.value;
 
       _this.setState({
         isLoading: true,
@@ -79663,6 +79682,7 @@ function (_Component) {
         width: 8
       }, _react.default.createElement(_semanticUiReact.Search, (0, _extends2.default)({
         category: true,
+        categoryLayoutRenderer: categoryLayoutRenderer,
         categoryRenderer: categoryRenderer,
         loading: isLoading,
         onResultSelect: this.handleResultSelect,

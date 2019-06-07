@@ -1411,7 +1411,7 @@ var _NoSSR = _interopRequireDefault(__webpack_require__(1175));
 var CodeEditor = _react.default.lazy(function () {
   return (0, _universalImport2.default)({
     id: "./CodeEditor",
-    file: "C:\\Users\\olfedias\\WebstormProjects\\Semantic-UI-React\\docs\\src\\components\\CodeEditor\\index.js",
+    file: "C:\\Dev\\Semantic-UI\\docs\\src\\components\\CodeEditor\\index.js",
     load: function load() {
       return Promise.all([__webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 1003)), (0, _importCss2.default)("CodeEditor", {
         disableWarnings: true
